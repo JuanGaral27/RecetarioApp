@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import * as api from '../api';
 import ImageField from '../ImageField';
-import { validateName, validateEmail, validatePassword, NAME_MAX, PASS_MAX, EMAIL_MAX } from '../validation';
+import { validateName, validateEmail, validatePassword } from '../formRules';
 import { useAuth } from '../AuthContext';
 import { Button, Input, ErrorBox, SectionTitle, confirmAsync, notify } from '../ui';
 import { colors } from '../theme';
@@ -83,14 +83,14 @@ export default function ProfileScreen() {
 
       <ErrorBox message={error} />
       <SectionTitle>Editar perfil</SectionTitle>
-      <Input label={`Nombre (4 a ${NAME_MAX} caracteres)`} value={name} onChangeText={setName} maxLength={NAME_MAX} />
-      <Input label="Correo" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" maxLength={EMAIL_MAX} />
+      <Input label="Nombre (4 a 20 caracteres)" value={name} onChangeText={setName} maxLength={20} />
+      <Input label="Correo" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" maxLength={100} />
       <Input label="Bio" value={bio} onChangeText={setBio} multiline maxLength={300} />
       <ImageField label="Foto de perfil" value={avatarUrl} onChange={setAvatarUrl} round aspect={[1, 1]} width={400} />
 
       <SectionTitle>Cambiar contraseña (opcional)</SectionTitle>
       <Input label="Contraseña actual" value={currentPassword} onChangeText={setCurrentPassword} secureTextEntry />
-      <Input label={`Nueva contraseña (6 a ${PASS_MAX} caracteres)`} value={newPassword} onChangeText={setNewPassword} secureTextEntry maxLength={PASS_MAX} />
+      <Input label="Nueva contraseña (6 a 14 caracteres)" value={newPassword} onChangeText={setNewPassword} secureTextEntry maxLength={14} />
       <Button title="Guardar cambios" onPress={save} loading={saving} />
       <Button title="Cerrar sesión" variant="outline" onPress={logoutNow} style={{ marginTop: 10 }} />
 

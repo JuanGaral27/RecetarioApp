@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../AuthContext';
 import { Button, Input, ErrorBox } from '../ui';
 import { colors } from '../theme';
-import { validateName, validateEmail, validatePassword, NAME_MAX, PASS_MAX, EMAIL_MAX } from '../validation';
+import { validateName, validateEmail, validatePassword } from '../formRules';
 
 export default function RegisterScreen({ navigation }) {
   const { register } = useAuth();
@@ -49,10 +49,10 @@ export default function RegisterScreen({ navigation }) {
           <Text style={{ fontSize: 26, fontWeight: '900', color: colors.text, marginBottom: 4 }}>Crear cuenta</Text>
           <Text style={{ color: colors.muted, marginBottom: 22 }}>Empieza a guardar tus recetas</Text>
           <ErrorBox message={error} />
-          <Input label={`Nombre (4 a ${NAME_MAX} caracteres)`} value={form.name} onChangeText={set('name')} maxLength={NAME_MAX} placeholder="Tu nombre" error={errors.name} />
-          <Input label="Correo" value={form.email} onChangeText={set('email')} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" maxLength={EMAIL_MAX} placeholder="nombre@empresa.com" error={errors.email} />
-          <Input label={`Contraseña (6 a ${PASS_MAX} caracteres)`} value={form.password} onChangeText={set('password')} secureTextEntry maxLength={PASS_MAX} error={errors.password} />
-          <Input label="Confirmar contraseña" value={form.confirm} onChangeText={set('confirm')} secureTextEntry maxLength={PASS_MAX} error={errors.confirm} />
+          <Input label="Nombre (4 a 20 caracteres)" value={form.name} onChangeText={set('name')} maxLength={20} placeholder="Tu nombre" error={errors.name} />
+          <Input label="Correo" value={form.email} onChangeText={set('email')} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" maxLength={100} placeholder="nombre@empresa.com" error={errors.email} />
+          <Input label="Contraseña (6 a 14 caracteres)" value={form.password} onChangeText={set('password')} secureTextEntry maxLength={14} error={errors.password} />
+          <Input label="Confirmar contraseña" value={form.confirm} onChangeText={set('confirm')} secureTextEntry maxLength={14} error={errors.confirm} />
           <Input label="Bio (opcional)" value={form.bio} onChangeText={set('bio')} multiline maxLength={300} placeholder="Cuéntanos algo sobre ti" />
           <Button title="Registrarme" onPress={submit} loading={loading} />
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 20 }}>

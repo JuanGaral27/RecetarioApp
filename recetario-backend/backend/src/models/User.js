@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       validate: [
         { validator: whenChanged('name', (v) => v.length >= 4), message: 'El nombre debe tener al menos 4 caracteres' },
-        { validator: whenChanged('name', (v) => v.length <= 25), message: 'El nombre no puede pasar de 25 caracteres' },
+        { validator: whenChanged('name', (v) => v.length <= 20), message: 'El nombre no puede pasar de 20 caracteres' },
       ],
     },
     email: {
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
       required: [true, 'La contraseña es obligatoria'],
       validate: [
         { validator: whenChanged('password', (v) => v.length >= 6), message: 'La contraseña debe tener al menos 6 caracteres' },
-        { validator: whenChanged('password', (v) => v.length <= 12), message: 'La contraseña no puede pasar de 12 caracteres' },
+        { validator: whenChanged('password', (v) => v.length <= 14), message: 'La contraseña no puede pasar de 14 caracteres' },
       ],
       select: false,
     },
