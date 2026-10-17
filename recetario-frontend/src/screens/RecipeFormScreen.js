@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Switch, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import * as api from '../api';
+import ImageField from '../ImageField';
 import { Button, Input, Chip, ErrorBox, SectionTitle, Loading, CATEGORIES, DIFFICULTY_LABEL } from '../ui';
 import { colors } from '../theme';
 
@@ -141,7 +142,7 @@ export default function RecipeFormScreen({ route, navigation }) {
           <View style={{ flex: 1 }}><Input label="Porciones" value={servings} onChangeText={setServings} keyboardType="numeric" /></View>
         </View>
 
-        <Input label="URL de imagen" value={imageUrl} onChangeText={setImageUrl} autoCapitalize="none" keyboardType="url" placeholder="https://…" />
+        <ImageField label="Foto de la receta" value={imageUrl} onChange={setImageUrl} aspect={[4, 3]} width={800} />
 
         <SectionTitle>Ingredientes *</SectionTitle>
         {ingredients.map((ing, i) => (

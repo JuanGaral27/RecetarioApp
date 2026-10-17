@@ -1,21 +1,44 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// Las reglas de formato solo se aplican cuando el campo es nuevo o cambia.
+// (Así un usuario ya existente puede editar su perfil aunque su clave ya esté cifrada.)
+const whenChanged = (path, test) =>
+  function (value) {
+    return this.isNew || this.isModified(path) ? test(value) : true;
+  };
+
+const EMAIL_REGEX = /^(?!\.)(?!.*\.\.)[A-Za-z0-9._%+-]+(?<!\.)@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: [true, 'El nombre es obligatorio'], trim: true, maxlength: 80 },
+    name: {
+      type: String,
+      required: [true, 'El nombre es obligatorio'],
+      trim: true,
+      validate: [
+        { validator: whenChanged('name', (v) => v.length >= 4), message: 'El nombre debe tener al menos 4 caracteres' },
+        { validator: whenChanged('name', (v) => v.length <= 25), message: 'El nombre no puede pasar de 25 caracteres' },
+      ],
+    },
     email: {
       type: String,
       required: [true, 'El correo es obligatorio'],
       unique: true,
       lowercase: true,
       trim: true,
-      match: [/^\S+@\S+\.\S+$/, 'Correo no válido'],
+      validate: [
+        { validator: whenChanged('email', (v) => v.length <= 100), message: 'El correo no puede pasar de 100 caracteres' },
+        { validator: whenChanged('email', (v) => EMAIL_REGEX.test(v)), message: 'Correo no válido (ejemplo: nombre@empresa.com)' },
+      ],
     },
     password: {
       type: String,
       required: [true, 'La contraseña es obligatoria'],
-      minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
+      validate: [
+        { validator: whenChanged('password', (v) => v.length >= 6), message: 'La contraseña debe tener al menos 6 caracteres' },
+        { validator: whenChanged('password', (v) => v.length <= 12), message: 'La contraseña no puede pasar de 12 caracteres' },
+      ],
       select: false,
     },
     bio: { type: String, trim: true, maxlength: 300, default: '' },

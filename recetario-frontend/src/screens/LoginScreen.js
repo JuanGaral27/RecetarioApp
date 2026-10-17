@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../AuthContext';
 import { Button, Input, ErrorBox } from '../ui';
@@ -28,8 +28,7 @@ export default function LoginScreen({ navigation }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={{ padding: 24, flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps="handled">
-          <Text style={{ fontSize: 48, textAlign: 'center' }}>🍳</Text>
-          <Text style={{ fontSize: 30, fontWeight: '900', color: colors.primary, textAlign: 'center' }}>Recetario</Text>
+          <Image source={require('../../assets/logo.png')} style={{ width: 150, height: 150, alignSelf: 'center', borderRadius: 28, marginBottom: 14 }} />
           <Text style={{ color: colors.muted, textAlign: 'center', marginBottom: 28 }}>Tus recetas, siempre a la mano</Text>
 
           <ErrorBox message={error} />
