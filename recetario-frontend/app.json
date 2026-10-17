@@ -16,7 +16,10 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png"
       },
-      "package": "com.jdgaral27.recetario"
+      "package": "com.jdgaral27.recetario",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,6 +31,11 @@
           "photosPermission": "Permite que Recetario acceda a tus fotos para elegir imágenes de recetas y de tu perfil."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0cb116fc-5903-4f02-b49e-c66e306e9c40"
+      }
+    }
   }
 }

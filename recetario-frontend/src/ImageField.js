@@ -14,10 +14,10 @@ export default function ImageField({ label, value, onChange, round, aspect = [4,
     setError('');
     setBusy(true);
     try {
-      const img = await pickImageFromDevice({ width, aspect });
+      const img = await pickImageFromDevice({ width });
       if (img) onChange(img);
     } catch (e) {
-      setError('No se pudo cargar la foto. Intenta con otra.');
+      setError('No se pudo abrir/cargar la foto: ' + (e?.message || 'error desconocido'));
     }
     setBusy(false);
   };
